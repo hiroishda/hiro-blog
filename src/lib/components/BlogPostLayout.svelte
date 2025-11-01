@@ -1,9 +1,21 @@
 <script lang="ts">
 	import type { BlogPost } from '../data/posts';
 	import { onMount } from 'svelte';
+	import type { Snippet } from 'svelte';
+	import { advancedMode } from '../stores/advancedMode';
 
-	export let post: BlogPost;
+	interface Props {
+		post: BlogPost;
+		children: Snippet;
+	}
+
+	let { post, children }: Props = $props();
 	let contentElement: HTMLElement;
+
+	function toggleAdvancedMode() {
+		advancedMode.update(mode => !mode);
+		console.log('Advanced mode toggled');
+	}
 
 	onMount(() => {
 		if (contentElement) {
@@ -11,22 +23,21 @@
 
 			elements.forEach((element) => {
 				const text = element.textContent || '';
-				const chars = text.split('');
+				const words = text.split(' ');
 
-				// Create array of indices and shuffle them randomly
-				const indices = chars.map((_, i) => i);
+				// Create array of word indices and shuffle them randomly
+				const indices = words.map((_, i) => i);
 				for (let i = indices.length - 1; i > 0; i--) {
 					const j = Math.floor(Math.random() * (i + 1));
 					[indices[i], indices[j]] = [indices[j], indices[i]];
 				}
 
-				// Replace text with spans
-				element.innerHTML = chars
-					.map((char, i) => {
-						if (char === ' ') return '<span class="inline-block">&nbsp;</span>';
-						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 30}ms">${char}</span>`;
+				// Replace text with word spans (keeping word boundaries intact)
+				element.innerHTML = words
+					.map((word, i) => {
+						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 100}ms">${word}</span>`;
 					})
-					.join('');
+					.join('<span class="inline-block">&nbsp;</span>');
 
 				// Trigger animation
 				setTimeout(() => {
@@ -94,7 +105,7 @@
 			</div>
 
 			{#if post.tags && post.tags.length > 0}
-				<div class="flex flex-wrap gap-2">
+				<div class="flex flex-wrap gap-2 mb-8">
 					{#each post.tags as tag}
 						<span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-charcoal/5 text-charcoal hover:bg-charcoal/10 transition-colors duration-300">
 							{tag}
@@ -102,10 +113,36 @@
 					{/each}
 				</div>
 			{/if}
+
+			<!-- Advanced Mode Toggle -->
+			<div class="flex items-center gap-3 p-4 bg-beige-dark/50 rounded-2xl border border-warm-gray/20">
+				<button
+					onclick={toggleAdvancedMode}
+					class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 {$advancedMode ? 'bg-accent' : 'bg-warm-gray/30'}"
+					role="switch"
+					aria-checked={$advancedMode}
+				>
+					<span class="sr-only">Enable advanced mode</span>
+					<span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 {$advancedMode ? 'translate-x-6' : 'translate-x-1'}"></span>
+				</button>
+				<div class="flex flex-col">
+					<span class="text-sm font-medium text-charcoal">Advanced Mode</span>
+					<span class="text-xs text-warm-gray">
+						{$advancedMode ? 'Code snippets are visible' : 'Code snippets are hidden'}
+					</span>
+				</div>
+				{#if $advancedMode}
+					<div class="ml-auto">
+						<svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+						</svg>
+					</div>
+				{/if}
+			</div>
 		</header>
 
 		<div class="prose prose-lg max-w-none prose-custom">
-			<slot />
+			{@render children()}
 		</div>
 
 		<footer class="mt-20 pt-12 border-t border-charcoal/10">

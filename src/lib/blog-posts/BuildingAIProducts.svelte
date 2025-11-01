@@ -1,10 +1,17 @@
 <script lang="ts">
 	import BlogPostLayout from '../components/BlogPostLayout.svelte';
 	import CodeSnippet from '../components/CodeSnippet.svelte';
-	export let post;
+	import AdvancedSection from '../components/AdvancedSection.svelte';
+	
+	interface Props {
+		post: any;
+	}
+	
+	let { post }: Props = $props();
 </script>
 
 <BlogPostLayout {post}>
+	{#snippet children()}
 	<p>After spending the last two years deep in the world of AI product development, I've learned that building successful AI applications is equal parts engineering challenge and product philosophy. The landscape has evolved dramatically, and many of the lessons I learned the hard way might save you some time and headaches.</p>
 
 	<h2>Start with the Problem, Not the Technology</h2>
@@ -354,48 +361,14 @@ Examples:
 
 	<p>No matter how accurate your AI is, if it takes 30 seconds to respond, users will abandon it. Streaming responses, async processing, and smart caching are essential.</p>
 
-	<CodeSnippet title="Streaming AI Responses for Better UX" language="typescript" filename="streaming-response.ts" code={`// ✅ Stream responses for better perceived performance
-async function streamAIResponse(prompt: string, onChunk: (text: string) => void) {
-  const response = await fetch('/api/ai/stream', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt })
-  });
+	<AdvancedSection 
+		title="Performance Optimization Techniques" 
+		summary="Streaming responses and async processing improve user experience significantly."
+	>
+	<h3>3. Plan for Failure (Because It Will Happen)</h3>
 
-  const reader = response.body?.getReader();
-  const decoder = new TextDecoder();
-  
-  if (!reader) return;
-  
-  while (true) {
-    const { done, value } = await reader.read();
-    
-    if (done) break;
-    
-    const chunk = decoder.decode(value, { stream: true });
-    const lines = chunk.split('\\n');
-    
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        const data = line.slice(6);
-        if (data !== '[DONE]') {
-          onChunk(data);
-        }
-      }
-    }
-  }
-}
-
-// Usage in your component
-function handleAIQuery(userInput: string) {
-  let accumulatedResponse = '';
-  
-  streamAIResponse(userInput, (chunk) => {
-    accumulatedResponse += chunk;
-    // Update UI in real-time
-    updateResponseDisplay(accumulatedResponse);
-  });
-}`} />
+	<p>AI systems fail differently than traditional software. Instead of clear error messages, you get subtly wrong answers. Build in confidence scores, fallback strategies, and human escalation paths.</p>
+	</AdvancedSection>
 
 	<h3>3. Plan for Failure (Because It Will Happen)</h3>
 
@@ -474,4 +447,5 @@ async function handleUserQuery(query: string) {
   
   return result.result;
 }`} />
+	{/snippet}
 </BlogPostLayout>

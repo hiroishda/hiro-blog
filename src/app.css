@@ -2,8 +2,8 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --color-beige: #fffaf0;
-  --color-beige-dark: #faefe2;
+  --color-beige: #fdf1dc;
+  --color-beige-dark: #fae0c0;
   --color-warm-gray: #8b8680;
   --color-charcoal: #2d2d2d;
   --color-accent: #d4a574;
@@ -24,10 +24,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
-  /* Typography improvements - Apple style */
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
     letter-spacing: -0.015em;
+    word-break: keep-all;
+    hyphens: none;
+    overflow-wrap: normal;
   }
 
   h1 {
@@ -107,5 +109,32 @@
   
   .prose-custom blockquote {
     @apply border-l-4 border-warm-gray pl-6 italic text-warm-gray;
+  }
+  
+  .prose-custom ul {
+    @apply text-charcoal;
+    list-style-type: disc;
+    list-style-position: outside;
+  }
+  
+  .prose-custom ul li {
+    @apply text-charcoal;
+  }
+  
+  .prose-custom ol {
+    @apply text-charcoal;
+  }
+  
+  .prose-custom ol li {
+    @apply text-charcoal;
+  }
+  
+  /* Force bullet color using a more specific selector */
+  .prose-custom ul > li {
+    color: var(--color-charcoal);
+  }
+  
+  .prose-custom ul > li::marker {
+    color: var(--color-accent) !important;
   }
 }
