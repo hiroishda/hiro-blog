@@ -1,6 +1,11 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,7 +16,7 @@ const config = {
 		mdsvex({
 			extensions: ['.md', '.svelte.md'],
 			layout: {
-				blog: 'src/lib/components/BlogLayout.svelte'
+				blog: resolve(__dirname, './src/lib/components/BlogLayout.svelte')
 			}
 		})
 	],
