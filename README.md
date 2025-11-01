@@ -1,38 +1,54 @@
-# sv
+# Hiro's Blog
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A clean, minimal blog built with SvelteKit, focused on AI and technology insights.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- 🎨 Clean, minimal design inspired by Anthropic and Apple
+- 📱 Fully responsive layout
+- 📝 Markdown support for blog posts
+- 🚀 Fast loading with modern web technologies
+- 🎯 SEO optimized
+- ✨ Subtle animations and interactions
 
-```sh
-# create a new project in the current directory
-npx sv create
+## Tech Stack
 
-# create a new project in my-app
-npx sv create my-app
+- **SvelteKit** - Full-stack web framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first styling
+- **MDsveX** - Markdown support
+- **Vite** - Fast build tool
+
+## Development
+
+Install dependencies:
+
+```bash
+npm install
 ```
 
-## Developing
+Start the development server:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+
+Open [http://localhost:5173](http://localhost:5173) to view the site.
 
 ## Building
 
-To create a production version of your app:
+To create a production version:
 
-```sh
+```bash
 npm run build
 ```
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Content
+
+The blog focuses on AI, technology, and human-computer interaction, sharing practical insights from building AI products and working in tech.
+
+## Deployment
+
+To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
