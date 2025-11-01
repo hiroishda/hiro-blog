@@ -36,66 +36,66 @@
 	<meta name="description" content="Read Hiro's latest thoughts on AI, technology, and the future of human-computer collaboration. Practical insights from building AI products and working in tech." />
 </svelte:head>
 
-<div class="pt-16 pb-20 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-4xl mx-auto">
+<div class="pt-20 pb-24 px-6 sm:px-8 lg:px-12">
+	<div class="max-w-5xl mx-auto">
 		<!-- Header -->
-		<div class="text-center mb-16">
-			<h1 class="text-4xl md:text-5xl font-medium text-charcoal mb-6">Blog</h1>
-			<p class="text-xl text-warm-gray max-w-3xl mx-auto leading-relaxed">
-				Thoughts on AI, technology, and building products that matter. 
+		<div class="text-center mb-20">
+			<h1 class="text-5xl md:text-6xl text-charcoal mb-6">Blog</h1>
+			<p class="text-xl text-warm-gray max-w-3xl mx-auto leading-relaxed font-normal">
+				Thoughts on AI, technology, and building products that matter.
 				Written from the trenches of actually shipping things.
 			</p>
 		</div>
-		
+
 		<!-- Posts List -->
-		<div class="space-y-12">
+		<div class="space-y-8">
 			{#each posts as post, index}
 				<article class="group">
-					<div class="bg-white/60 rounded-2xl p-8 hover:bg-white/80 transition-all duration-300 hover:shadow-lg">
+					<div class="bg-white rounded-3xl p-10 hover:shadow-2xl transition-all duration-500 border border-charcoal/5">
 						<!-- Post Meta -->
-						<div class="flex items-center gap-4 mb-4 text-sm text-warm-gray">
+						<div class="flex items-center gap-4 mb-5 text-xs text-warm-gray uppercase tracking-wide">
 							<time class="font-medium">
-								{new Date(post.date).toLocaleDateString('en-US', { 
-									year: 'numeric', 
-									month: 'long', 
-									day: 'numeric' 
+								{new Date(post.date).toLocaleDateString('en-US', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
 								})}
 							</time>
-							<span>•</span>
+							<span>·</span>
 							<span>{post.readTime}</span>
 						</div>
-						
+
 						<!-- Title -->
-						<h2 class="text-2xl md:text-3xl font-medium text-charcoal mb-4 leading-tight">
-							<a 
-								href="/blog/{post.slug}" 
-								class="hover:text-warm-gray transition-colors group-hover:text-warm-gray"
+						<h2 class="text-3xl md:text-4xl text-charcoal mb-5 leading-tight tracking-tight">
+							<a
+								href="/blog/{post.slug}"
+								class="hover:text-accent transition-colors duration-300"
 							>
 								{post.title}
 							</a>
 						</h2>
-						
+
 						<!-- Excerpt -->
-						<p class="text-warm-gray leading-relaxed mb-6 text-lg">
+						<p class="text-warm-gray leading-relaxed mb-6 text-lg font-normal">
 							{post.excerpt}
 						</p>
-						
+
 						<!-- Tags -->
 						<div class="flex flex-wrap gap-2 mb-6">
 							{#each post.tags as tag}
-								<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-charcoal/5 text-charcoal">
+								<span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-charcoal/5 text-charcoal hover:bg-charcoal/10 transition-colors duration-300">
 									{tag}
 								</span>
 							{/each}
 						</div>
-						
+
 						<!-- Read More Link -->
-						<a 
-							href="/blog/{post.slug}" 
-							class="inline-flex items-center text-charcoal font-medium hover:text-warm-gray transition-colors group"
+						<a
+							href="/blog/{post.slug}"
+							class="inline-flex items-center text-accent font-medium hover:text-accent-dark transition-colors duration-300 group/link"
 						>
 							Read full post
-							<svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<svg class="ml-2 w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
 							</svg>
 						</a>
@@ -103,10 +103,10 @@
 				</article>
 			{/each}
 		</div>
-		
+
 		<!-- Pagination (placeholder for future) -->
-		<div class="mt-16 text-center">
-			<p class="text-warm-gray">
+		<div class="mt-20 text-center">
+			<p class="text-warm-gray font-normal">
 				More posts coming soon. Stay tuned!
 			</p>
 		</div>

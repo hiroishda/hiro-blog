@@ -47,24 +47,24 @@
 
 <div class="min-h-screen bg-beige">
 	<!-- Navigation -->
-	<nav class="sticky top-0 z-50 bg-beige/80 backdrop-blur-sm border-b border-warm-gray/20">
-		<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="flex justify-between items-center h-16">
+	<nav class="sticky top-0 z-50 bg-beige/95 backdrop-blur-xl border-b border-charcoal/10">
+		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+			<div class="flex justify-between items-center h-14">
 				<!-- Logo -->
 				<div class="flex-shrink-0">
-					<a href="/" class="text-xl font-semibold text-charcoal hover:opacity-80 transition-opacity">
-						Hiro's Blog
+					<a href="/" class="text-xl font-semibold text-charcoal hover:opacity-70 transition-opacity duration-300">
+						Hiro
 					</a>
 				</div>
-				
+
 				<!-- Desktop Navigation -->
 				<div class="hidden md:block">
-					<div class="ml-10 flex items-baseline space-x-8">
+					<div class="flex items-center space-x-10">
 						{#each navigation as item}
 							<a
 								href={item.href}
-								class="text-charcoal hover:text-warm-gray transition-colors duration-200 px-3 py-2 text-sm font-medium"
-								class:font-semibold={$page.url.pathname === item.href}
+								class="text-sm hover:text-charcoal transition-colors duration-300 relative"
+								class:font-medium={$page.url.pathname === item.href}
 								class:text-charcoal={$page.url.pathname === item.href}
 								class:text-warm-gray={$page.url.pathname !== item.href}
 							>
@@ -138,12 +138,12 @@
 	</main>
 	
 	<!-- Footer -->
-	<footer class="bg-white/50 border-t border-warm-gray/20 mt-20">
-		<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+	<footer class="bg-beige border-t border-charcoal/10 mt-24">
+		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
 			<div class="text-center">
 				<div class="text-warm-gray text-sm">
-					<p class="mb-2">© 2025 Hiro's Blog. Built with SvelteKit.</p>
-					<p class="text-xs">Sharing experiences and insights from the world of AI and technology.</p>
+					<p class="mb-2 font-medium">© 2025 Hiro. Built with SvelteKit and Tailwind CSS.</p>
+					<p class="text-xs opacity-80">Sharing experiences and insights from the world of AI and technology.</p>
 				</div>
 			</div>
 		</div>
