@@ -1,52 +1,71 @@
 <script lang="ts">
+	import type { BlogPost } from '../data/posts';
 	import { onMount } from 'svelte';
-	
-	// Props that will be passed from the frontmatter
-	export let title: string = '';
-	export let date: string = '';
-	export let readTime: string = '';
-	export let tags: string[] = [];
-	export let excerpt: string = '';
-	
+
+	export let post: BlogPost;
 	let contentElement: HTMLElement;
-	
+
 	onMount(() => {
-		// Simple fade-in animation
 		if (contentElement) {
-			contentElement.style.opacity = '0';
-			contentElement.style.transform = 'translateY(20px)';
-			
-			requestAnimationFrame(() => {
-				contentElement.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-				contentElement.style.opacity = '1';
-				contentElement.style.transform = 'translateY(0)';
+			const elements = contentElement.querySelectorAll('.animate-letters');
+
+			elements.forEach((element) => {
+				const text = element.textContent || '';
+				const chars = text.split('');
+
+				// Create array of indices and shuffle them randomly
+				const indices = chars.map((_, i) => i);
+				for (let i = indices.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[indices[i], indices[j]] = [indices[j], indices[i]];
+				}
+
+				// Replace text with spans
+				element.innerHTML = chars
+					.map((char, i) => {
+						if (char === ' ') return '<span class="inline-block">&nbsp;</span>';
+						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 30}ms">${char}</span>`;
+					})
+					.join('');
+
+				// Trigger animation
+				setTimeout(() => {
+					element.querySelectorAll('span').forEach(span => {
+						span.classList.add('animate-appear');
+					});
+				}, 100);
 			});
 		}
 	});
-	
+
 	function formatDate(dateString: string): string {
-		return new Date(dateString).toLocaleDateString('en-US', { 
-			year: 'numeric', 
-			month: 'long', 
-			day: 'numeric' 
+		return new Date(dateString).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
 		});
 	}
 </script>
 
+<style>
+	@keyframes appear {
+		to {
+			opacity: 1;
+		}
+	}
+
+	:global(.animate-appear) {
+		animation: appear 0.3s ease-out forwards;
+	}
+</style>
+
 <svelte:head>
-	<title>{title} - Hiro's Blog</title>
-	<meta name="description" content={excerpt} />
-	<meta property="og:title" content={title} />
-	<meta property="og:description" content={excerpt} />
-	<meta property="og:type" content="article" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={title} />
-	<meta name="twitter:description" content={excerpt} />
+	<title>{post.title} - Hiro's Blog</title>
+	<meta name="description" content={post.excerpt} />
 </svelte:head>
 
 <article class="pt-20 pb-24 px-6 sm:px-8 lg:px-12" bind:this={contentElement}>
 	<div class="max-w-4xl mx-auto">
-		<!-- Back to blog link -->
 		<div class="mb-10">
 			<a
 				href="/blog"
@@ -59,27 +78,24 @@
 			</a>
 		</div>
 
-		<!-- Article Header -->
 		<header class="mb-16">
-			<h1 class="text-5xl md:text-6xl lg:text-7xl text-charcoal mb-8 leading-tight tracking-tight">
-				{title}
+			<h1 class="text-5xl md:text-6xl lg:text-7xl text-charcoal mb-8 leading-tight tracking-tight animate-letters">
+				{post.title}
 			</h1>
 
-			<!-- Meta information -->
 			<div class="flex flex-wrap items-center gap-4 text-warm-gray mb-8">
 				<time class="text-xs font-medium uppercase tracking-wide">
-					{formatDate(date)}
+					{formatDate(post.date)}
 				</time>
-				{#if readTime}
+				{#if post.readTime}
 					<span>·</span>
-					<span class="text-xs uppercase tracking-wide">{readTime}</span>
+					<span class="text-xs uppercase tracking-wide">{post.readTime}</span>
 				{/if}
 			</div>
 
-			<!-- Tags -->
-			{#if tags && tags.length > 0}
+			{#if post.tags && post.tags.length > 0}
 				<div class="flex flex-wrap gap-2">
-					{#each tags as tag}
+					{#each post.tags as tag}
 						<span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-charcoal/5 text-charcoal hover:bg-charcoal/10 transition-colors duration-300">
 							{tag}
 						</span>
@@ -88,16 +104,12 @@
 			{/if}
 		</header>
 
-		<!-- Article Content -->
-		<div class="prose prose-lg max-w-none">
-			<div class="prose-custom">
-				<slot />
-			</div>
+		<div class="prose prose-lg max-w-none prose-custom">
+			<slot />
 		</div>
 
-		<!-- Footer -->
 		<footer class="mt-20 pt-12 border-t border-charcoal/10">
-			<div class="bg-white rounded-3xl p-10 border border-charcoal/5">
+			<div class="bg-beige-dark rounded-3xl p-10 border border-charcoal/5">
 				<h3 class="text-2xl text-charcoal mb-5">Thanks for reading!</h3>
 				<p class="text-warm-gray mb-8 font-normal leading-relaxed">
 					I hope you found this post helpful. If you have thoughts, questions, or just want to chat about AI and technology,

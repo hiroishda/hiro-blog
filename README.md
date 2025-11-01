@@ -1,23 +1,24 @@
 # Hiro's Blog
 
-A modern, minimalist blog built with SvelteKit and Tailwind CSS, inspired by Apple's clean design aesthetic. This blog focuses on AI, technology, and the intersection of human creativity and machine intelligence.
+A modern, minimalist blog built with Svelte and Tailwind CSS, inspired by Apple's clean design aesthetic. This is a static single-page application focusing on AI, technology, and the intersection of human creativity and machine intelligence.
 
 ## ✨ Features
 
-- **Tailwind CSS v4**: Latest version with modern CSS features and improved performance
-- **SvelteKit**: Fast, modern web framework with server-side rendering
-- **MDsveX**: Write blog posts in Markdown with Svelte component support
+- **Apple-Inspired Design**: Clean, minimalist aesthetic with careful attention to typography, spacing, and animations
+- **Pure Svelte SPA**: Fast, modern single-page application built with Svelte
+- **Tailwind CSS v4**: Latest version with modern CSS features
+- **Client-Side Routing**: Smooth navigation using svelte-routing
 - **Responsive**: Fully responsive design that works beautifully on all devices
 - **Type-Safe**: Written in TypeScript for better developer experience
 - **Smooth Animations**: Subtle, performant animations using native CSS transitions
-- **SEO Ready**: Proper meta tags and semantic HTML structure
+- **Static Build**: Outputs to `dist` folder for easy deployment anywhere
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - Node.js 18+ and npm
-- Basic knowledge of SvelteKit and Tailwind CSS
+- Basic knowledge of Svelte and Tailwind CSS
 
 ### Installation
 
@@ -46,40 +47,42 @@ hiro-blog/
 ├── src/
 │   ├── lib/
 │   │   ├── components/
-│   │   │   └── BlogLayout.svelte    # Blog post layout wrapper
-│   │   └── assets/                  # Static assets
-│   ├── routes/
-│   │   ├── +layout.svelte           # Root layout with navigation
-│   │   ├── +page.svelte             # Homepage
-│   │   ├── +error.svelte            # Error page (404)
-│   │   ├── about/
-│   │   │   └── +page.svelte         # About page
-│   │   └── blog/
-│   │       ├── +page.svelte         # Blog listing page
-│   │       └── *.md                 # Blog posts (Markdown)
-│   ├── app.css                      # Global styles and Tailwind config
-│   ├── app.d.ts                     # TypeScript declarations
-│   └── app.html                     # HTML template
-├── static/                          # Static files
-├── svelte.config.js                 # SvelteKit configuration
-├── tailwind.config.js               # Tailwind CSS configuration
-├── tsconfig.json                    # TypeScript configuration
-├── vite.config.ts                   # Vite configuration
-└── package.json                     # Project dependencies
-```
+│   │   │   ├── Nav.svelte              # Navigation component
+│   │   │   ├── Footer.svelte           # Footer component
+│   │   │   └── BlogPostLayout.svelte   # Blog post wrapper
+│   │   ├── blog-posts/
+│   │   │   ├── BuildingAIProducts.svelte
+│   │   │   ├── FutureHumanAI.svelte
+│   │   │   └── WhyOptimistic.svelte
+│   │   └── data/
+│   │       └── posts.ts                # Blog posts metadata
+│   ├── pages/
+│   │   ├── Home.svelte                 # Homepage
+│   │   ├── Blog.svelte                 # Blog listing
+│   │   ├── About.svelte                # About page
+│   │   └── BlogPost.svelte             # Blog post router
+│   ├── App.svelte                      # Main app component
+│   ├── main.ts                         # Entry point
+│   └── app.css                         # Global styles
+├── index.html                          # HTML template
+├── vite.config.ts                      # Vite configuration
+├── tailwind.config.js                  # Tailwind configuration
+└── package.json                        # Dependencies
 
 ## 🎨 Design System
 
 ### Colors
 
-- **Background**: `#f5f5f7` (Light gray)
-- **Text**: `#1d1d1f` (Almost black)
-- **Secondary Text**: `#86868b` (Medium gray)
-- **Accent**: `#0071e3` (Apple blue)
-- **Accent Dark**: `#0077ed` (Darker blue for hover states)
+The blog uses an Apple-inspired color palette with warm tones:
+
+- **Background**: `#f7f5f3` (Warm beige)
+- **Text**: `#2d2d2d` (Charcoal)
+- **Secondary Text**: `#8b8680` (Warm gray)
+- **Accent**: `#d4a574` (Soft terracotta/tan)
 
 ### Typography
 
+- **Font Family**: SF Pro Display fallback to system fonts (`-apple-system`)
 - **Headings**: Semibold weight (600) with tight tracking
 - **Body**: Normal weight (400) with relaxed line height
 
@@ -89,43 +92,47 @@ hiro-blog/
 - **Cards**: White background with subtle borders and shadow on hover
 - **Spacing**: Generous whitespace for clean, breathable layouts
 
-## 📝 Writing Blog Posts
+## 📝 Adding Blog Posts
 
-Blog posts are written in Markdown with frontmatter. Create a new `.md` file in `src/routes/blog/`:
+Blog posts are Svelte components. To add a new post:
 
-```markdown
----
-title: Your Blog Post Title
-date: 2024-01-15
-readTime: 5 min read
-tags: ["AI", "Technology", "Tutorial"]
-excerpt: A brief description of your post that appears in listings
-layout: blog
----
+1. Add post metadata to `src/lib/data/posts.ts`:
 
-# Your Content Here
-
-Write your blog post content using Markdown syntax...
+```typescript
+{
+	title: "Your Post Title",
+	excerpt: "Brief description",
+	date: "2024-11-01",
+	slug: "your-post-slug",
+	readTime: "5 min read",
+	tags: ["AI", "Technology"]
+}
 ```
 
-### Frontmatter Fields
+2. Create a new component in `src/lib/blog-posts/YourPost.svelte`:
 
-- `title` (required): The post title
-- `date` (required): Publication date in YYYY-MM-DD format
-- `readTime` (required): Estimated reading time
-- `tags` (required): Array of topic tags
-- `excerpt` (required): Short description for listings
-- `layout` (required): Set to "blog" to use the blog layout
+```svelte
+<script lang="ts">
+	import BlogPostLayout from '../components/BlogPostLayout.svelte';
+	export let post;
+</script>
+
+<BlogPostLayout {post}>
+	<p>Your blog post content here...</p>
+	<h2>Section Title</h2>
+	<p>More content...</p>
+</BlogPostLayout>
+```
+
+3. Import and add it to the `components` object in `src/pages/BlogPost.svelte`
 
 ## 🛠️ Development
 
 ### Available Scripts
 
 - `npm run dev`: Start development server
-- `npm run build`: Build for production
+- `npm run build`: Build for production (outputs to `dist/`)
 - `npm run preview`: Preview production build
-- `npm run check`: Run TypeScript and Svelte checks
-- `npm run lint`: Run ESLint (if configured)
 
 ### Building for Production
 
@@ -133,107 +140,54 @@ Write your blog post content using Markdown syntax...
 npm run build
 ```
 
-The built files will be in `.svelte-kit/output`. The project uses `@sveltejs/adapter-auto` which automatically detects your deployment platform.
+The built files will be in the `dist/` directory. This is a static site that can be deployed anywhere.
 
-### Deployment
+## 🚀 Deployment
 
-This project is configured to deploy to **Cloudflare Pages** by default.
+### Cloudflare Pages
 
-#### Cloudflare Pages (Recommended)
-
-1. Push your code to a Git repository (GitHub, GitLab, etc.)
+1. Push your code to a Git repository
 2. Log in to [Cloudflare Pages](https://pages.cloudflare.com)
-3. Click "Create a project" and connect your Git repository
-4. Configure the build settings:
+3. Create a new project and connect your repository
+4. Configure build settings:
+   - **Framework preset**: None
    - **Build command**: `npm run build`
-   - **Build output directory**: `.svelte-kit/cloudflare`
-   - **Root directory**: `/` (leave as default)
-   - **Node version**: `18` or higher (in Environment Variables)
-5. Click "Save and Deploy"
+   - **Build output directory**: `dist`
+5. Deploy!
 
-Cloudflare Pages will automatically deploy your site and provide a URL. Future commits to your main branch will trigger automatic deployments.
+### Other Static Hosting Platforms
 
-#### Other Platforms
-
-To deploy to other platforms, change the adapter in `svelte.config.js`:
-
-- **Vercel**: Install `@sveltejs/adapter-vercel` and import it
-- **Netlify**: Install `@sveltejs/adapter-netlify` and import it
-- **Node.js Server**: Install `@sveltejs/adapter-node` and import it
-
-See [SvelteKit adapters documentation](https://kit.svelte.dev/docs/adapters) for more details.
+The `dist` folder can be deployed to:
+- **Vercel**: `vercel --prod`
+- **Netlify**: Drag and drop `dist` folder or use CLI
+- **GitHub Pages**: Push `dist` contents to `gh-pages` branch
+- **Any static host**: Upload `dist` folder contents
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these guidelines:
+Contributions are welcome! Guidelines:
 
 ### Code Style
 
 - Use TypeScript for type safety
-- Follow the existing code formatting
+- Follow existing code formatting
 - Use meaningful variable and function names
-- Write descriptive comments only when necessary (code should be self-documenting)
 - Maintain the Apple-inspired design aesthetic
 
 ### Commit Messages
 
-Use clear, descriptive commit messages:
-
 ```
 feat: Add new blog post about AI ethics
-fix: Correct responsive layout on mobile devices
-docs: Update README with deployment instructions
+fix: Correct responsive layout on mobile
 style: Refine button hover animations
 ```
 
 ### Pull Request Process
 
-1. **Fork the repository** and create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make your changes** and test thoroughly:
-   ```bash
-   npm run dev
-   npm run check
-   npm run build
-   ```
-
-3. **Commit your changes** with clear messages:
-   ```bash
-   git commit -m "feat: Add your feature description"
-   ```
-
-4. **Push to your fork**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-5. **Create a Pull Request** with:
-   - Clear description of changes
-   - Screenshots for UI changes
-   - Reference to any related issues
-
-### Design Guidelines
-
-When contributing design changes:
-
-- **Maintain minimalism**: Less is more
-- **Use the existing color palette**: Don't introduce new colors without discussion
-- **Keep animations subtle**: 300-500ms durations, ease-out timing
-- **Ensure responsiveness**: Test on mobile, tablet, and desktop
-- **Follow Apple's design principles**: Clean, simple, user-friendly
-
-### Adding Features
-
-Before adding major features:
-
-1. Open an issue to discuss the feature
-2. Wait for maintainer feedback
-3. Implement following the project's architecture
-4. Add documentation for new features
-5. Include tests if applicable
+1. Fork and create a feature branch
+2. Make changes and test thoroughly (`npm run dev`, `npm run build`)
+3. Commit with clear messages
+4. Push and create a Pull Request with description and screenshots
 
 ## 📄 License
 
@@ -241,18 +195,16 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Built with [SvelteKit](https://kit.svelte.dev)
+- Design inspired by [Apple's website](https://apple.com)
+- Built with [Svelte](https://svelte.dev)
 - Styled with [Tailwind CSS](https://tailwindcss.com)
-- Markdown processing by [mdsvex](https://mdsvex.pngwn.io)
+- Routing by [svelte-routing](https://github.com/EmilTholin/svelte-routing)
 
 ## 📞 Contact
 
-Have questions or suggestions? Feel free to:
-
 - Open an issue on GitHub
-- Send an email to hello@hiroblog.com
-- Connect on social media
+- Email: hello@hiroblog.com
 
 ---
 
-Built with ❤️ using SvelteKit and Tailwind CSS
+Built with ❤️ using Svelte and Tailwind CSS

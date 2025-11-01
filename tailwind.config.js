@@ -6,12 +6,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'beige': '#f7f5f3',
+        'beige': '#fffaf0',
         'warm-gray': '#8b8680',
         'charcoal': '#2d2d2d',
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': ['Libre Baskerville', 'Georgia', 'serif'],
         'mono': ['SF Mono', 'Monaco', 'monospace'],
       },
       typography: (theme) => ({
