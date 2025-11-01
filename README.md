@@ -146,7 +146,7 @@ This project is configured to deploy to **Cloudflare Pages** by default.
 3. Click "Create a project" and connect your Git repository
 4. Configure the build settings:
    - **Build command**: `npm run build`
-   - **Build output directory**: `public`
+   - **Build output directory**: `.svelte-kit/cloudflare`
    - **Root directory**: `/` (leave as default)
    - **Node version**: `18` or higher (in Environment Variables)
 5. Click "Save and Deploy"
