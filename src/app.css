@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-beige: #f5f5f7;
+  --color-warm-gray: #86868b;
+  --color-charcoal: #1d1d1f;
+  --color-accent: #0071e3;
+  --color-accent-dark: #0077ed;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Courier New', monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-beige text-charcoal font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Typography improvements - Apple style */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+    letter-spacing: -0.015em;
+  }
+
+  h1 {
+    @apply text-5xl md:text-6xl lg:text-7xl;
+    font-weight: 600;
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl;
+    font-weight: 600;
+  }
+
+  h3 {
+    @apply text-3xl md:text-4xl;
+    font-weight: 600;
+  }
+
+  p {
+    @apply leading-relaxed;
+    letter-spacing: -0.003em;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-warm-gray rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-charcoal;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-7 py-3 border border-transparent text-base font-medium rounded-full text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-300 ease-out;
+    min-width: 160px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-7 py-3 border border-charcoal/20 text-base font-medium rounded-full text-charcoal bg-transparent hover:bg-charcoal/5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-charcoal/20 transition-all duration-300 ease-out;
+    min-width: 160px;
+  }
+  
+  .prose-custom {
+    @apply prose prose-lg max-w-none;
+  }
+  
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3 {
+    @apply text-charcoal font-medium tracking-tight;
+  }
+  
+  .prose-custom p {
+    @apply text-charcoal leading-relaxed;
+  }
+  
+  .prose-custom a {
+    @apply text-charcoal underline decoration-2 underline-offset-4 hover:decoration-4 transition-all duration-200;
+  }
+  
+  .prose-custom code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+  }
+  
+  .prose-custom pre {
+    @apply bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto;
+  }
+  
+  .prose-custom blockquote {
+    @apply border-l-4 border-warm-gray pl-6 italic text-warm-gray;
+  }
+}
