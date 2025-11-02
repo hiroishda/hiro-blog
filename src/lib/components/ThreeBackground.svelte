@@ -13,7 +13,7 @@
 
 	// Function to determine sphere position based on time
 	function getFusedSpherePosition(time: number): [number, number, number] {
-		if (time < 0.25) {
+		if (time < 0.16) {
 			return [time, Math.tan((time/10)), 0];
 		} else {
 			return [time, Math.sin(time/3), 0];
@@ -29,9 +29,9 @@
 			showTan = true
 			// Cycle through animation phases every 3 seconds (3000ms / 16ms = ~187 frames)
 			console.log({time}, animationPhase);
-			if (time > 6 * Math.PI) {
+			if (time > 5.5 * Math.PI) {
 				animationPhase = (animationPhase + 1) % 3;
-				time = - 6 * Math.PI;
+				time = - 5.5 * Math.PI;
 			}
 			// Slowly increase draw progress, reset when complete
 			drawProgress = (drawProgress + 0.005) % 1;
@@ -83,7 +83,6 @@
 				<T.MeshStandardMaterial color="#806154" transparent opacity={0.3} wireframe/>
 			</T.Mesh>
 		{/if}
-
 		<!-- Icosahedron -->
 		<!-- <T.Mesh position={[-2, -2, -1]} rotation={[rotation * 0.6, rotation * 0.4, 0]}>
 			<T.IcosahedronGeometry args={[1, 0]} />
