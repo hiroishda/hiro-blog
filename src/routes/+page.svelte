@@ -10,11 +10,11 @@
 	// Location mapping for each animation phase
 	const animationTexts = [
 		"SP, Brazil", // Placeholder for phase 0
-		"", // Placeholder for phase 1
+		".", // Placeholder for phase 1
 		"Building Together"  // Placeholder for phase 2
 	];
 
-	$: currentAnimationText = animationTexts[currentAnimationPhase] || "Unknown Location";
+	$: currentAnimationText = animationTexts[currentAnimationPhase];
 
 	onMount(() => {
 		if (heroElement) {

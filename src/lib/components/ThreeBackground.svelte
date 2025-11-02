@@ -10,6 +10,10 @@
 	let showTan = false;
 	export let animationPhase = 0; // 0, 1, 2 for the three phases - now exported
 	let phaseTimer = 0;
+	let screenWidth = 0;
+	
+	// Calculate time boundaries based on screen width
+	$: timeBoundary = Math.max(3, (screenWidth / 300)) * Math.PI;
 
 	// Function to determine sphere position based on time
 	function getFusedSpherePosition(time: number): [number, number, number] {
@@ -21,17 +25,28 @@
 	}
 
 	onMount(() => {
+		// Get initial screen width
+		screenWidth = window.innerWidth;
+		// Initialize time with the calculated boundary
+		time = -timeBoundary;
+		
+		// Listen for window resize to update screen width
+		const handleResize = () => {
+			screenWidth = window.innerWidth;
+		};
+		window.addEventListener('resize', handleResize);
+
 		const animationInterval = setInterval(() => {
 			rotation += 0.005;
 			time += 0.05;
 			
-			// Show text only when time is between -4/2 and 4/2*π
+			// Show text only when time is between -timeBoundary and timeBoundary
 			showTan = true
-			// Cycle through animation phases every 3 seconds (3000ms / 16ms = ~187 frames)
+			// Cycle through animation phases based on screen-width dependent boundaries
 			console.log({time}, animationPhase);
-			if (time > 5.5 * Math.PI) {
+			if (time > timeBoundary) {
 				animationPhase = (animationPhase + 1) % 3;
-				time = - 5.5 * Math.PI;
+				time = -timeBoundary;
 			}
 			// Slowly increase draw progress, reset when complete
 			drawProgress = (drawProgress + 0.005) % 1;
@@ -39,6 +54,7 @@
 
 		return () => {
 			clearInterval(animationInterval);
+			window.removeEventListener('resize', handleResize);
 		};
 	});
 </script>
