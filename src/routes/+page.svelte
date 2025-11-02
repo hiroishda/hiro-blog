@@ -18,32 +18,30 @@
 
 	onMount(() => {
 		if (heroElement) {
-			const elements = heroElement.querySelectorAll(".animate-letters");
+			const elements = heroElement.querySelectorAll('.animate-letters');
 
 			elements.forEach((element) => {
-				const text = element.textContent || "";
-				const chars = text.split("");
+				const text = element.textContent || '';
+				const words = text.split(' ');
 
-				// Create array of indices and shuffle them randomly
-				const indices = chars.map((_, i) => i);
+				// Create array of word indices and shuffle them randomly
+				const indices = words.map((_, i) => i);
 				for (let i = indices.length - 1; i > 0; i--) {
 					const j = Math.floor(Math.random() * (i + 1));
 					[indices[i], indices[j]] = [indices[j], indices[i]];
 				}
 
-				// Replace text with spans
-				element.innerHTML = chars
-					.map((char, i) => {
-						if (char === " ")
-							return '<span class="inline-block">&nbsp;</span>';
-						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 10}ms">${char}</span>`;
+				// Replace text with word spans (keeping word boundaries intact)
+				element.innerHTML = words
+					.map((word, i) => {
+						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 100}ms">${word}</span>`;
 					})
-					.join("");
+					.join('<span class="inline-block">&nbsp;</span>');
 
 				// Trigger animation
 				setTimeout(() => {
-					element.querySelectorAll("span").forEach((span) => {
-						span.classList.add("animate-appear");
+					element.querySelectorAll('span').forEach(span => {
+						span.classList.add('animate-appear');
 					});
 				}, 100);
 			});

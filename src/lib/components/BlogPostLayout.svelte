@@ -66,7 +66,7 @@
 	}
 
 	:global(.animate-appear) {
-		animation: appear 0.3s ease-out forwards;
+		animation: appear 0.05s forwards;
 	}
 </style>
 
