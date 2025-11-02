@@ -24,7 +24,11 @@
 
 	<p>Early in my journey, I worked on an AI-powered customer support tool. Our first version was essentially a chatbot with GPT-3 that could answer questions. It was technically impressive but solved the wrong problem.</p>
 
-	<CodeSnippet title="Simple AI Integration Pattern" language="javascript" filename="basic-ai-integration.js" code={`// ❌ Wrong approach: AI-first thinking
+	<AdvancedSection
+		title="Code Example: AI Integration Patterns"
+		summary="See code comparing AI-first vs problem-first thinking approaches."
+	>
+		<CodeSnippet title="Simple AI Integration Pattern" language="javascript" filename="basic-ai-integration.js" code={`// ❌ Wrong approach: AI-first thinking
 function buildChatbot() {
   return {
     name: "AI Customer Service Bot",
@@ -33,14 +37,14 @@ function buildChatbot() {
   };
 }
 
-// ✅ Right approach: Problem-first thinking  
+// ✅ Right approach: Problem-first thinking
 function buildAgentAssist() {
   return {
-    name: "Support Agent Assistant", 
+    name: "Support Agent Assistant",
     purpose: "Help agents be 40% more productive",
     features: [
       "Auto-categorize tickets",
-      "Suggest responses from successful past resolutions", 
+      "Suggest responses from successful past resolutions",
       "Highlight key customer information",
       "Escalate complex issues to senior agents"
     ]
@@ -53,16 +57,17 @@ const agentAssistWorkflow = {
     const category = aiCategorize(ticket.content);
     const urgency = determineUrgency(ticket, category);
     const suggestedResponse = findSimilarResolutions(category, ticket.content);
-    
+
     return {
       category,
-      urgency, 
+      urgency,
       suggestedResponse,
       confidence: 0.87,
       needsHumanReview: urgency === 'high' || confidence < 0.8
     };
   }
 };`} />
+	</AdvancedSection>
 
 	<p>The real problem wasn't that customers needed another way to ask questions - it was that support agents spent 60% of their time on repetitive tasks that prevented them from helping customers with complex issues.</p>
 
@@ -75,7 +80,11 @@ const agentAssistWorkflow = {
 
 	<p>The result? Agent productivity increased by 40%, and customer satisfaction improved because agents could focus on actually helping rather than searching through documentation.</p>
 
-	<CodeSnippet title="Python AI Classification System" language="python" filename="ticket_classifier.py" code={`from transformers import pipeline
+	<AdvancedSection
+		title="Implementation: Ticket Classification System"
+		summary="View the complete Python implementation of an AI-powered ticket classifier with routing and urgency detection."
+	>
+		<CodeSnippet title="Python AI Classification System" language="python" filename="ticket_classifier.py" code={`from transformers import pipeline
 import numpy as np
 from typing import Dict, List, Optional
 import logging
@@ -289,6 +298,7 @@ def main():
 
 if __name__ == "__main__":
     main()`} />
+	</AdvancedSection>
 
 	<h2>The Data Reality Check</h2>
 
@@ -315,7 +325,11 @@ if __name__ == "__main__":
 
 	<p>Writing good prompts isn't just a technical skill - it's product development. The way you structure prompts directly impacts user experience.</p>
 
-	<CodeSnippet title="Example: Good vs Bad Prompt Structure" language="javascript" filename="prompt-examples.js" code={`// ❌ Bad: Vague and unclear
+	<AdvancedSection
+		title="Prompt Engineering Examples"
+		summary="Learn how to structure effective AI prompts with examples showing good vs bad approaches."
+	>
+		<CodeSnippet title="Example: Good vs Bad Prompt Structure" language="javascript" filename="prompt-examples.js" code={`// ❌ Bad: Vague and unclear
 const badPrompt = "Write something about AI";
 
 // ✅ Good: Specific, structured, with context
@@ -356,25 +370,21 @@ Examples:
 - "Account locked" = high urgency, escalate to human
 - Feature requests = low urgency, use feature request template
 \`;`} />
+	</AdvancedSection>
 
 	<h3>2. Latency Kills Adoption</h3>
 
 	<p>No matter how accurate your AI is, if it takes 30 seconds to respond, users will abandon it. Streaming responses, async processing, and smart caching are essential.</p>
 
-	<AdvancedSection 
-		title="Performance Optimization Techniques" 
-		summary="Streaming responses and async processing improve user experience significantly."
+	<h3>3. Plan for Failure (Because It Will Happen)</h3>
+
+	<p>AI systems fail differently than traditional software. Instead of clear error messages, you get subtly wrong answers. Build in confidence scores, fallback strategies, and human escalation paths.</p>
+
+	<AdvancedSection
+		title="Error Handling & Fallback Strategies"
+		summary="See a complete TypeScript implementation for handling AI failures with retries, confidence thresholds, and escalation paths."
 	>
-	<h3>3. Plan for Failure (Because It Will Happen)</h3>
-
-	<p>AI systems fail differently than traditional software. Instead of clear error messages, you get subtly wrong answers. Build in confidence scores, fallback strategies, and human escalation paths.</p>
-	</AdvancedSection>
-
-	<h3>3. Plan for Failure (Because It Will Happen)</h3>
-
-	<p>AI systems fail differently than traditional software. Instead of clear error messages, you get subtly wrong answers. Build in confidence scores, fallback strategies, and human escalation paths.</p>
-
-	<CodeSnippet title="AI Error Handling & Fallback Strategies" language="typescript" filename="ai-error-handling.ts" code={`interface AIResponse {
+		<CodeSnippet title="AI Error Handling & Fallback Strategies" language="typescript" filename="ai-error-handling.ts" code={`interface AIResponse {
   result: string;
   confidence: number;
   metadata: {
@@ -447,5 +457,6 @@ async function handleUserQuery(query: string) {
   
   return result.result;
 }`} />
+	</AdvancedSection>
 	{/snippet}
 </BlogPostLayout>

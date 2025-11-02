@@ -17,13 +17,11 @@
 
 {#if $advancedMode}
 	<!-- Show full content when advanced mode is on -->
-	<div class="advanced-section-content relative">
 		<!-- Small indicator that this is advanced content -->
-		<div class="absolute -left-3 top-2 w-1.5 h-8 bg-accent/40 rounded-full"></div>
-		<div class="pl-2">
+		<!-- <div class="absolute -left-3 top-2 w-1.5 h-8 bg-accent/40 rounded-full"></div> -->
+		<div>
 			{@render children()}
 		</div>
-	</div>
 {:else}
 	<!-- Show subtle summary when advanced mode is off -->
 	<div class="my-6 relative">
@@ -49,8 +47,4 @@
 {/if}
 
 <style>
-	.advanced-section-content {
-		/* Subtle styling to indicate this is advanced content */
-		margin: 1.5rem 0;
-	}
 </style>

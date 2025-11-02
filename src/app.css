@@ -72,12 +72,12 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-2 text-sm font-normal text-charcoal hover:text-charcoal/70 focus:outline-none transition-colors duration-150;
+    @apply inline-flex items-center justify-center px-2 py-2 text-sm font-normal text-charcoal hover:text-charcoal/70 focus:outline-none transition-colors duration-150;
     border-bottom: 1px solid currentColor;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-2 text-sm font-normal text-charcoal/60 hover:text-charcoal focus:outline-none transition-colors duration-150;
+    @apply inline-flex items-center justify-center px-2 py-2 text-sm font-normal text-charcoal/60 hover:text-charcoal focus:outline-none transition-colors duration-150;
     border-bottom: 1px solid currentColor;
   }
   

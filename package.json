@@ -23,6 +23,10 @@
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
-		"highlight.js": "^11.11.1"
+		"@threlte/core": "^8.1.8",
+		"@threlte/extras": "^9.5.5",
+		"gsap": "^3.13.0",
+		"highlight.js": "^11.11.1",
+		"three": "^0.181.0"
 	}
 }
