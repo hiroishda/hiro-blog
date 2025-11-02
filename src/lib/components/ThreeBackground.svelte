@@ -8,7 +8,7 @@
 	let time = - 6 * Math.PI;
 	let drawProgress = 0;
 	let showTan = false;
-	let animationPhase = 0; // 0, 1, 2 for the three phases
+	export let animationPhase = 0; // 0, 1, 2 for the three phases - now exported
 	let phaseTimer = 0;
 
 	// Function to determine sphere position based on time

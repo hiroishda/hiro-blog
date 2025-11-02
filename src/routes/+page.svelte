@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { posts } from "$lib/data/posts";
-	import gsap from "gsap";
 	import ThreeBackground from "$lib/components/ThreeBackground.svelte";
 
 	let heroElement: HTMLElement;
+	let currentAnimationPhase = 0;
 	const recentPosts = posts.slice(0, 3);
+
+	// Location mapping for each animation phase
+	const animationTexts = [
+		"SP, Brazil", // Placeholder for phase 0
+		"", // Placeholder for phase 1
+		"Building Together"  // Placeholder for phase 2
+	];
+
+	$: currentAnimationText = animationTexts[currentAnimationPhase] || "Unknown Location";
 
 	onMount(() => {
 		if (heroElement) {
@@ -56,14 +65,17 @@
 	bind:this={heroElement}
 >
 	<!-- 3D Background -->
-	<ThreeBackground />
+	<ThreeBackground bind:animationPhase={currentAnimationPhase} />
 
 	<div class="max-w-5xl mx-auto text-center relative z-10">
 			<h1
-				class="title text-6xl md:text-7xl lg:text-8xl text-charcoal tracking-tight animate-letters mb-10"
+				class="title text-6xl md:text-7xl lg:text-8xl text-charcoal tracking-tight animate-letters"
 			>
 				Hiro Ishida
 			</h1>
+			<p class="text-sm font-normal mb-8 text-left max-w-fit mx-auto text-beige">
+				{currentAnimationText}
+			</p>
 			<p
 				class="text-xl md:text-2xl text-warm-gray max-w-3xl mx-auto leading-relaxed font-normal animate-letters"
 			>
