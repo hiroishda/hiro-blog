@@ -13,7 +13,7 @@
 
 	// Function to determine sphere position based on time
 	function getFusedSpherePosition(time: number): [number, number, number] {
-		if (time < 0.16) {
+		if (time < 0) {
 			return [time, Math.tan((time/10)), 0];
 		} else {
 			return [time, Math.sin(time/3), 0];
@@ -59,7 +59,7 @@
 		{/if}
 
 		{#if animationPhase === 1}
-			<T.Mesh position={[time, Math.cos(time/3), 0]}
+			<T.Mesh position={[time, Math.sin(time/3), 0]}
 					rotation={[rotation * 0.3, rotation * 0.8, rotation * 0.5]}>
 				<T.BoxGeometry args={[2, 2, 2]} />
 				<T.MeshStandardMaterial color="#806154" transparent opacity={0.3} wireframe/>
