@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { posts } from "$lib/data/posts";
 	import ThreeBackground from "$lib/components/ThreeBackground.svelte";
+	import { animateLetters } from "$lib/utils/letterAnimation";
 
 	let heroElement: HTMLElement;
 	let currentAnimationPhase = 0;
@@ -17,35 +18,7 @@
 	$: currentAnimationText = animationTexts[currentAnimationPhase];
 
 	onMount(() => {
-		if (heroElement) {
-			const elements = heroElement.querySelectorAll('.animate-letters');
-
-			elements.forEach((element) => {
-				const text = element.textContent || '';
-				const words = text.split(' ');
-
-				// Create array of word indices and shuffle them randomly
-				const indices = words.map((_, i) => i);
-				for (let i = indices.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[indices[i], indices[j]] = [indices[j], indices[i]];
-				}
-
-				// Replace text with word spans (keeping word boundaries intact)
-				element.innerHTML = words
-					.map((word, i) => {
-						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 100}ms">${word}</span>`;
-					})
-					.join('<span class="inline-block">&nbsp;</span>');
-
-				// Trigger animation
-				setTimeout(() => {
-					element.querySelectorAll('span').forEach(span => {
-						span.classList.add('animate-appear');
-					});
-				}, 100);
-			});
-		}
+		animateLetters(heroElement);
 	});
 </script>
 
@@ -75,7 +48,7 @@
 				{currentAnimationText}
 			</p>
 			<p
-				class="text-xl md:text-2xl text-warm-gray max-w-3xl mx-auto leading-relaxed font-normal animate-letters"
+				class="text-xl md:text-2xl text-warm-gray max-w-3xl mx-auto wrap-break-word leading-relaxed font-normal animate-letters"
 			>
 				I write about everything that I find interesting.
 			</p>

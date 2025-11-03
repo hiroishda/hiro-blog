@@ -1,39 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { animateLetters } from '../../lib/utils/letterAnimation';
 
 	let contentElement: HTMLElement;
 
 	onMount(() => {
-		if (contentElement) {
-			const elements = contentElement.querySelectorAll('.animate-letters');
-
-			elements.forEach((element) => {
-				const text = element.textContent || '';
-				const chars = text.split('');
-
-				// Create array of indices and shuffle them randomly
-				const indices = chars.map((_, i) => i);
-				for (let i = indices.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[indices[i], indices[j]] = [indices[j], indices[i]];
-				}
-
-				// Replace text with spans
-				element.innerHTML = chars
-					.map((char, i) => {
-						if (char === ' ') return '<span class="inline-block">&nbsp;</span>';
-						return `<span class="inline-block opacity-0" style="animation-delay: ${indices.indexOf(i) * 30}ms">${char}</span>`;
-					})
-					.join('');
-
-				// Trigger animation
-				setTimeout(() => {
-					element.querySelectorAll('span').forEach(span => {
-						span.classList.add('animate-appear');
-					});
-				}, 100);
-			});
-		}
+		animateLetters(contentElement);
 	});
 </script>
 

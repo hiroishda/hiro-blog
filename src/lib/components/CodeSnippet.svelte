@@ -26,7 +26,7 @@
 	
 	let { title = 'Show Code', language = 'javascript', filename = '', code }: Props = $props();
 	
-	let isOpen = $state(false);
+	let isOpen = $state(true);
 	let codeElement = $state<HTMLElement>();
 	let highlightedCode = $state('');
 	

@@ -138,4 +138,5 @@
   .prose-custom ul > li::marker {
     color: var(--color-accent) !important;
   }
+
 }
