@@ -10,9 +10,9 @@
 
 	// Location mapping for each animation phase
 	const animationTexts = [
-		"SP, Brazil", // Placeholder for phase 0
+		"Idealizing.", // Placeholder for phase 0
 		".", // Placeholder for phase 1
-		"Building Together"  // Placeholder for phase 2
+		"Building."  // Placeholder for phase 2
 	];
 
 	$: currentAnimationText = animationTexts[currentAnimationPhase];
@@ -53,7 +53,7 @@
 				I write about everything that I find interesting.
 			</p>
 		<div
-			class="flex flex-col sm:flex-row gap-5 justify-center items-center"
+			class="flex flex-col sm:flex-row gap-5 justify-center items-center p-4"
 		>
 				<a href="/blog" class="btn-primary"> Read the Blog </a>
 				<a href="/about" class="btn-secondary"> About Me </a>

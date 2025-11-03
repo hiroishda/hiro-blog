@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import NavBox from './NavBox.svelte';
 
 	let isMenuOpen = false;
 
@@ -34,12 +35,13 @@
 <nav class="sticky top-0 z-50 bg-beige/95 backdrop-blur-xl border-b border-charcoal/10">
 	<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
 		<div class="flex justify-between items-center h-14">
-			<!-- Logo -->
-			<div class="flex-shrink-0">
-				<a href="/" class="text-xl font-semibold text-charcoal hover:opacity-70 transition-opacity duration-300">
-					Hiro
-				</a>
-			</div>
+		<!-- Logo -->
+		<div class="shrink-0">
+			<a href="/" class="flex items-center gap-2 hover:opacity-70 transition-opacity duration-300">
+				<span class="text-xl font-semibold text-charcoal">Hiro</span>
+				<NavBox />
+			</a>
+		</div>
 
 			<!-- Desktop Navigation -->
 			<div class="hidden md:block">

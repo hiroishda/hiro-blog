@@ -36,6 +36,28 @@
 	:global(.animate-appear) {
 		animation: appear 0.05s forwards;
 	}
+
+	.abstract-button {
+		position: relative;
+		transform-origin: center;
+		transition: border-radius 0.5s ease-in-out;
+	}
+
+	.abstract-button.inactive {
+		border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%;
+	}
+
+	.abstract-button.active {
+		border-radius: 60% 40% 30% 70% / 60% 60% 40% 40%;
+	}
+
+	.abstract-button.inactive:hover {
+		border-radius: 50% 40% 60% 50% / 50% 60% 40% 50%;
+	}
+
+	.abstract-button.active:hover {
+		border-radius: 45% 55% 65% 35% / 55% 45% 35% 65%;
+	}
 </style>
 
 <svelte:head>
@@ -86,17 +108,27 @@
 			<div class="flex items-center gap-3 p-4 bg-beige-dark/50 rounded-2xl border border-warm-gray/20">
 				<button
 					onclick={toggleAdvancedMode}
-					class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 {$advancedMode ? 'bg-accent' : 'bg-warm-gray/30'}"
+					class="abstract-button {$advancedMode ? 'active' : 'inactive'} relative inline-flex h-10 w-14 items-center justify-center transition-all duration-500 focus:outline-none focus:ring-offset-2 cursor-pointer {$advancedMode ? 'bg-accent hover:bg-accent/90' : 'bg-warm-gray/30 hover:bg-warm-gray/40'}"
 					role="switch"
 					aria-checked={$advancedMode}
 				>
 					<span class="sr-only">Enable advanced mode</span>
-					<span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 {$advancedMode ? 'translate-x-6' : 'translate-x-1'}"></span>
+					{#if $advancedMode}
+						<!-- Code SVG -->
+						<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+						</svg>
+					{:else}
+						<!-- Document SVG -->
+						<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+						</svg>
+					{/if}
 				</button>
 				<div class="flex flex-col">
 					<span class="text-sm font-medium text-charcoal">Advanced Mode</span>
 					<span class="text-xs text-warm-gray">
-						{$advancedMode ? 'Code snippets are visible' : 'Code snippets are hidden'}
+						{$advancedMode ? 'Activated' : 'Sections hidden'}
 					</span>
 				</div>
 				{#if $advancedMode}
