@@ -65,9 +65,9 @@
 	<meta name="description" content={post.excerpt} />
 </svelte:head>
 
-<article class="pt-20 pb-24 px-6 sm:px-8 lg:px-12" bind:this={contentElement}>
+<article class="pt-7 pb-24 px-6 sm:px-8 lg:px-12" bind:this={contentElement}>
 	<div class="max-w-4xl mx-auto">
-		<div class="mb-10">
+		<div class="mb-8">
 			<a
 				href="/blog"
 				class="inline-flex items-center text-warm-gray hover:text-accent transition-colors duration-300 group"
